@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Lời chúc sinh nhật</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(160deg, #ffe4ec 0%, #fff0f5 40%, #ffe8f0 100%);
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+    }
+
+    /* Login screen */
+    .login-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    .login-box {
+      background: white;
+      border-radius: 24px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(255, 150, 180, 0.3);
+      border: 3px solid #ffb6c1;
+    }
+
+    .login-box img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffc0cb;
+      margin-bottom: 16px;
+    }
+
+    .login-box h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ff69b4;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      color: #d46a9a;
+      margin-bottom: 22px;
+      font-size: 0.95rem;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #ffc0cb;
+      border-radius: 16px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      outline: none;
+      background: #fff9fb;
+    }
+
+    .login-box input:focus {
+      border-color: #ff69b4;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff69b4, #ff8fab);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 105, 180, 0.4);
+    }
+
+    .login-error {
+      color: #ff5252;
+      font-size: 0.9rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Main admin */
+    .admin-content {
+      display: none;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5rem;
+      color: #ff69b4;
+      text-shadow: 2px 2px 0 #ffb6c1;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      color: #d46a9a;
+      font-size: 1.05rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 16px 28px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(255, 182, 193, 0.28);
+      border: 2px solid #ffc0cb;
+      text-align: center;
+      min-width: 130px;
+    }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff69b4;
+    }
+
+    .stat-card .label {
+      color: #d46a9a;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+
+    .actions-bar {
+      max-width: 1100px;
+      margin: 0 auto 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 11px 22px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff69b4, #ff8fab);
+      color: white;
+      box-shadow: 0 4px 14px rgba(255, 105, 180, 0.35);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #ff69b4;
+      border: 2px solid #ffb6c1;
+    }
+
+    .btn-danger {
+      background: #ff6b6b;
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 7px 13px;
+      font-size: 0.82rem;
+    }
+
+    .wishes-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+      padding: 0 4px;
+    }
+
+    .wish-card {
+      background: #fffafc;
+      border-radius: 22px;
+      box-shadow: 0 8px 28px rgba(255, 150, 180, 0.22);
+      border: 2.5px solid #ffc0cb;
+      transition: all 0.28s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wish-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 36px rgba(255, 130, 170, 0.32);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #ffe4ec, #fff0f5);
+      padding: 16px 18px 12px;
+      border-bottom: 2px dashed #ffc0cb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffc0cb;
+      box-shadow: 0 3px 10px rgba(255, 150, 180, 0.25);
+      flex-shrink: 0;
+    }
+
+    .card-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ff69b4;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    .card-date {
+      font-size: 0.75rem;
+      color: #c080a0;
+      margin-top: 2px;
+    }
+
+    .card-body {
+      padding: 16px 18px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-message {
+      color: #5a3a4a;
+      line-height: 1.55;
+      font-size: 0.98rem;
+      background: white;
+      padding: 14px 15px;
+      border-radius: 14px;
+      border: 1.5px solid #ffe0ea;
+      white-space: pre-wrap;
+      word-break: break-word;
+      flex: 1;
+      min-height: 70px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      padding: 0 16px 14px;
+      margin-top: 12px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 24px;
+      border: 2px dashed #ffc0cb;
+      color: #d46a9a;
+    }
+
+    .empty-state img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffc0cb;
+      margin-bottom: 14px;
+    }
+
+    .empty-state h3 {
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+      color: #ff69b4;
+    }
+
+    .loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px;
+      color: #ff69b4;
+      font-size: 1.15rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #ff69b4;
+      color: white;
+      padding: 13px 26px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(255, 105, 180, 0.4);
+      transition: transform 0.3s ease;
+      z-index: 200;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 16px 12px 30px; }
+      .header h1 { font-size: 2rem; }
+      .header p { font-size: 0.95rem; }
+      .stats { gap: 10px; }
+      .stat-card { padding: 14px 20px; min-width: 110px; }
+      .stat-card .number { font-size: 1.7rem; }
+      .actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .actions-bar .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+      }
+      .wishes-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .wish-card {
+        border-radius: 18px;
+      }
+      .card-header {
+        padding: 14px 14px 10px;
+      }
+      .card-avatar {
+        width: 42px;
+        height: 42px;
+      }
+      .card-name {
+        font-size: 1.08rem;
+      }
+      .card-message {
+        font-size: 0.95rem;
+        padding: 12px 13px;
+      }
+      .card-actions {
+        padding: 0 14px 12px;
+      }
+      .card-actions .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+      .login-box {
+        padding: 28px 20px;
+        margin: 0 8px;
+      }
+      .login-box input {
+        padding: 14px 14px;
+        font-size: 16px; /* tránh zoom iOS */
+      }
+      .login-box button {
+        padding: 15px;
+        min-height: 52px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .header h1 { font-size: 1.8rem; }
+      .stat-card { min-width: 100px; padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <img src="/images/cat3.jpg" alt="Cat">
+      <h1>Admin Panel</h1>
+      <p>Nhập mật khẩu để xem lời chúc</p>
+      <input type="password" id="passwordInput" placeholder="Mật khẩu..." autocomplete="current-password">
+      <button onclick="checkPassword()">Vào trang quản trị</button>
+      <div class="login-error" id="loginError">Sai mật khẩu rồi nha!</div>
+    </div>
+  </div>
+
+  <!-- Admin content (hidden until login) -->
+  <div class="admin-content" id="adminContent">
+    <div class="header">
+      <h1>Admin Panel</h1>
+      <p>Quản lý tất cả lời chúc sinh nhật</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="number" id="totalWishes">0</div>
+        <div class="label">Tổng lời chúc</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="todayWishes">0</div>
+        <div class="label">Hôm nay</div>
+      </div>
+    </div>
+
+    <div class="actions-bar">
+      <button class="btn btn-secondary" onclick="loadWishes()">Làm mới</button>
+      <div>
+        <a href="/" class="btn btn-primary" target="_blank" style="margin-right: 8px;">Xem form gửi lời chúc</a>
+        <button class="btn btn-secondary" onclick="logout()">Đăng xuất</button>
+      </div>
+    </div>
+
+    <div class="wishes-grid" id="wishesContainer">
+      <div class="loading">Đang tải lời chúc...</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const loginScreen = document.getElementById('loginScreen');
+    const adminContent = document.getElementById('adminContent');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginError = document.getElementById('loginError');
+
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkPassword();
+    });
+
+    async function checkPassword() {
+      loginError.style.display = 'none';
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: passwordInput.value })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Đăng nhập thất bại');
+        passwordInput.value = '';
+        showAdmin();
+      } catch (err) {
+        loginError.textContent = err.message;
+        loginError.style.display = 'block';
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    }
+
+    async function showAdmin() {
+      loginScreen.style.display = 'none';
+      adminContent.style.display = 'block';
+      loadWishes();
+    }
+
+    async function logout() {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      location.reload();
+    }
+
+    // Kiểm tra phiên đăng nhập do máy chủ xác thực, không dùng cờ trong trình duyệt.
+    fetch('/api/admin/session').then(r => r.json()).then(data => {
+      if (data.authenticated) showAdmin();
+    }).catch(() => {});
+
+    let wishes = [];
+    const catImages = ['/images/cat1.jpg', '/images/cat2.jpg', '/images/cat3.jpg', '/images/cat4.jpg'];
+
+    async function loadWishes() {
+      const container = document.getElementById('wishesContainer');
+      container.innerHTML = '<div class="loading">Đang tải lời chúc...</div>';
+
+      try {
+        const res = await fetch('/api/wishes');
+        if (res.status === 401) { logout(); return; }
+        if (!res.ok) throw new Error('Không thể tải dữ liệu');
+        wishes = await res.json();
+        renderWishes();
+        updateStats();
+      } catch (err) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <img src="/images/cat4.jpg" alt="Cat">
+            <h3>Không tải được dữ liệu</h3>
+            <p>${err.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('totalWishes').textContent = wishes.length;
+      const today = new Date().toDateString();
+      const todayCount = wishes.filter(w => new Date(w.createdAt).toDateString() === today).length;
+      document.getElementById('todayWishes').textContent = todayCount;
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleString('vi-VN', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    function getCatImage(id) {
+      const num = parseInt(id.slice(-1)) || 0;
+      return catImages[num % catImages.length];
+    }
+
+    function renderWishes() {
+      const container = document.getElementById('wishesContainer');
+
+      if (wishes.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <img src="/images/cat1.jpg" alt="Cat">
+            <h3>Chưa có lời chúc nào</h3>
+            <p>Hãy chia sẻ link form để bạn bè gửi lời chúc nhé!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = wishes.map(w => `
+        <div class="wish-card" data-id="${w.id}">
+          <div class="card-header">
+            <img src="${getCatImage(w.id)}" alt="Cat" class="card-avatar">
+            <div>
+              <div class="card-name">${escapeHtml(w.name)}</div>
+              <div class="card-date">${formatDate(w.createdAt)}</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-message">${escapeHtml(w.message)}</div>
+            <div class="card-actions">
+              <button class="btn btn-danger btn-sm" onclick="deleteWish('${w.id}')">Xóa</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function deleteWish(id) {
+      if (!confirm('Bạn chắc chắn muốn xóa lời chúc này chứ?')) return;
+
+      try {
+        const res = await fetch(`/api/wishes/${id}`, { method: 'DELETE' });
+        if (res.status === 401) { logout(); return; }
+        if (!res.ok) throw new Error('Xóa thất bại');
+        showToast('Đã xóa lời chúc');
+        loadWishes();
+      } catch (err) {
+        showToast('Lỗi: ' + err.message);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+  </script>
+</body>
+</html>

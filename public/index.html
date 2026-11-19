@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffe4ec 0%, #fff0f5 50%, #ffe4f0 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      width: 100%;
+      background: #fff9fb;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(255, 105, 180, 0.25);
+      overflow: hidden;
+      border: 3px solid #ffb6c1;
+    }
+
+    .lace-top {
+      height: 36px;
+      background: radial-gradient(circle at 10px 0, transparent 8px, #ffc0cb 8.5px) 0 0 / 20px 36px, linear-gradient(to bottom, #ffe4ec, #fff9fb);
+      border-bottom: 2px dashed #ffb6c1;
+    }
+
+    .lace-bottom {
+      height: 36px;
+      background: radial-gradient(circle at 10px 36px, transparent 8px, #ffc0cb 8.5px) 0 0 / 20px 36px, linear-gradient(to top, #ffe4ec, #fff9fb);
+      border-top: 2px dashed #ffb6c1;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 18px 24px 24px;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .left-side {
+      flex: 1;
+      min-width: 280px;
+      text-align: center;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cats-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cat-img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffc0cb;
+      box-shadow: 0 6px 16px rgba(255, 150, 180, 0.35);
+      background: white;
+    }
+
+    .cat-img.big {
+      width: 120px;
+      height: 120px;
+    }
+
+    .main-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      color: #ff69b4;
+      text-shadow: 3px 3px 0 #ffb6c1, 0 0 20px rgba(255,105,180,0.3);
+      line-height: 1.1;
+      margin: 8px 0;
+    }
+
+    .subtitle {
+      color: #d46a9a;
+      font-size: 0.98rem;
+      margin: 10px 0 16px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .cake-img {
+      width: 160px;
+      height: auto;
+      border-radius: 16px;
+      margin: 8px auto;
+      box-shadow: 0 8px 20px rgba(255, 150, 180, 0.3);
+      border: 3px solid #ffc0cb;
+    }
+
+    .right-side {
+ flex: 1;
+      min-width: 300px;
+      background: white;
+      border-radius: 24px;
+      padding: 26px 22px;
+      box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
+      border: 2px solid #ffc0cb;
+      position: relative;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-header img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffc0cb;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(255, 150, 180, 0.3);
+    }
+
+    .form-header h2 {
+      color: #ff69b4;
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #e91e8c;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border: 2px solid #ffc0cb;
+      border-radius: 16px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      background: #fff9fb;
+      color: #5a3a4a;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #ff69b4;
+      box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.15);
+      background: white;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #e0a0b8;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff69b4, #ff8fab);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.5);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .thank-you {
+      text-align: center;
+      margin-top: 14px;
+      color: #d46a9a;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 14px;
+      color: #ff69b4;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.25rem;
+      background: #fff0f5;
+    }
+
+    .confirm-overlay, .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 182, 193, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .confirm-overlay.show, .success-overlay.show {
+      display: flex;
+    }
+
+    .confirm-box, .success-box {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 24px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.3);
+      border: 3px solid #ffb6c1;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .confirm-box img, .success-box img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffc0cb;
+      margin-bottom: 14px;
+    }
+
+    .confirm-box h3, .success-box h2 {
+      color: #ff69b4;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .success-box h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+    }
+
+    .confirm-box p, .success-box p {
+      color: #d46a9a;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .confirm-actions button, .success-box button {
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel {
+      background: #fff0f5;
+      color: #d46a9a;
+      border: 2px solid #ffc0cb;
+    }
+
+    .btn-confirm, .success-box button {
+      background: linear-gradient(135deg, #ff69b4, #ff8fab);
+      color: white;
+      box-shadow: 0 4px 14px rgba(255, 105, 180, 0.35);
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 12px; }
+      .container { border-radius: 20px; border-width: 2px; }
+      .content { 
+        flex-direction: column; 
+        padding: 14px 12px; 
+        gap: 16px; 
+      }
+      .left-side { order: 1; }
+      .right-side { 
+        order: 2; 
+        min-width: 100%; 
+        padding: 20px 16px;
+      }
+      .main-title { font-size: 2.2rem; }
+      .subtitle { font-size: 0.92rem; }
+      .cats-row { gap: 8px; margin-bottom: 8px; }
+      .cat-img { width: 62px; height: 62px; }
+      .cat-img.big { width: 78px; height: 78px; }
+      .cake-img { width: 130px; }
+      .form-header img { width: 58px; height: 58px; }
+      .form-header h2 { font-size: 1.02rem; }
+      .form-group input, .form-group textarea {
+        padding: 14px 14px;
+        font-size: 16px; /* tránh zoom trên iOS */
+      }
+      .submit-btn { 
+        padding: 16px; 
+        font-size: 1.05rem; 
+        min-height: 52px;
+      }
+      .confirm-box, .success-box { 
+        padding: 24px 18px; 
+        margin: 12px;
+        max-width: 100%;
+      }
+      .confirm-actions {
+        flex-direction: column;
+      }
+      .confirm-actions button {
+        width: 100%;
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .main-title { font-size: 1.9rem; }
+      .cat-img { width: 52px; height: 52px; }
+      .cat-img.big { width: 66px; height: 66px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="lace-top"></div>
+    
+    <div class="content">
+      <div class="left-side">
+        <div class="cats-row">
+          <img src="/images/cat1.jpg" alt="Cute cat" class="cat-img">
+          <img src="/images/cat4.jpg" alt="Cute cat" class="cat-img big">
+          <img src="/images/cat3.jpg" alt="Cool cat" class="cat-img">
+        </div>
+        
+        <h1 class="main-title">Happy<br>Birthday!</h1>
+        
+        <p class="subtitle">
+          Một ngày đặc biệt,<br>
+          cùng những lời chúc thật dễ thương nhé!
+        </p>
+
+        <img src="/images/cat2.jpg" alt="Cat with cake" class="cake-img">
+      </div>
+
+      <div class="right-side">
+        <div class="form-header">
+          <img src="/images/cat1.jpg" alt="Cat">
+          <h2>Gửi một lời chúc đến<br>chủ nhân bữa tiệc nào!</h2>
+        </div>
+
+        <form id="wishForm">
+          <div class="form-group">
+            <label for="name">Tên của bạn</label>
+            <input type="text" id="name" name="name" placeholder="Nhập tên của bạn..." required maxlength="50">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Lời chúc sinh nhật</label>
+            <textarea id="message" name="message" placeholder="Viết những điều bạn muốn gửi gắm... (có thể là lời chúc, lời nhắn dễ thương...)" required maxlength="500"></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            Gửi lời chúc
+          </button>
+        </form>
+
+        <p class="thank-you">
+          Cảm ơn bạn đã là một phần trong ngày đặc biệt này!
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">Thank you!</div>
+    <div class="lace-bottom"></div>
+  </div>
+
+  <!-- Confirm dialog -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <img src="/images/cat4.jpg" alt="Cat">
+      <h3>Bạn chắc chắn muốn gửi?</h3>
+      <p>Lời chúc sẽ được gửi đến chủ nhân bữa tiệc ngay lập tức.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn-cancel" id="btnCancel">Không, để xem lại</button>
+        <button type="button" class="btn-confirm" id="btnConfirm">Có, gửi luôn!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success overlay -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-box">
+      <img src="/images/cat2.jpg" alt="Happy cat">
+      <h2>Gửi thành công!</h2>
+      <p>Lời chúc của bạn đã được gửi đến chủ nhân bữa tiệc rồi nha!<br>Cảm ơn bạn rất nhiều</p>
+      <button onclick="closeSuccess()">Gửi thêm lời chúc khác</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('wishForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const confirmOverlay = document.getElementById('confirmOverlay');
+    const successOverlay = document.getElementById('successOverlay');
+    const btnCancel = document.getElementById('btnCancel');
+    const btnConfirm = document.getElementById('btnConfirm');
+
+    let pendingData = null;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !message) {
+        alert('Vui lòng điền đầy đủ thông tin nhé!');
+        return;
+      }
+
+      pendingData = { name, message };
+      confirmOverlay.classList.add('show');
+    });
+
+    btnCancel.addEventListener('click', () => {
+      confirmOverlay.classList.remove('show');
+      pendingData = null;
+    });
+
+    btnConfirm.addEventListener('click', async () => {
+      if (!pendingData) return;
+
+      confirmOverlay.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Đang gửi...';
+
+      try {
+        const res = await fetch('/api/wishes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pendingData)
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Có lỗi xảy ra');
+        }
+
+        form.reset();
+        successOverlay.classList.add('show');
+      } catch (err) {
+        alert('Oops! Gửi không thành công: ' + err.message + '\nHãy thử lại nhé');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Gửi lời chúc';
+        pendingData = null;
+      }
+    });
+
+    confirmOverlay.addEventListener('click', (e) => {
+      if (e.target === confirmOverlay) {
+        confirmOverlay.classList.remove('show');
+        pendingData = null;
+      }
+    });
+
+    function closeSuccess() {
+      successOverlay.classList.remove('show');
+    }
+  </script>
+</body>
+</html>
